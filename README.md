@@ -1,4 +1,4 @@
-# blog-php-symfony4
+# Description
 Création d'un blog en PHP en utilisant le framework Symfony 4.3 avec MySQL
 
 # Fonctionnalités attendues
