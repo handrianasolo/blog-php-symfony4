@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+{% endblock %}
+
+ {% block body %}
+
+    <h1>{{ form_title }}</h1>
+    {{ form(form_article) }}
+    
+ {% endblock %}

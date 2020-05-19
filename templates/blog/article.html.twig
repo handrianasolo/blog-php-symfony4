@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron jumbotron-fluid bg-orange">
+        <div class="container">
+                <h1>{{ article.title }}</h1>
+        </div>
+    </div>
+    <div class="item">
+        <figure>
+            <img src="{{ article.image }}" alt="A generic placeholder image in a figure.">
+            <figcaption class="figure-caption"><h6>Written by Toto</h6></figcaption>
+        </figure>
+        <div class="article_item">
+            <p>{{article.content}} </p>
+            <!-- filter twig -->
+            <p>Created at {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} | {{ article.category.title }} </p>
+            <p><a class="btn btn-secondary" href="{{ path('articles_page') }}" role="button">&laquo; Back </a></p>
+        </div>
+    </div>
+    <div class="">
+    </div>
+
+{% endblock %}

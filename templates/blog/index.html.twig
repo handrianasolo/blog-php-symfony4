@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+{% endblock %}
+
+{% block body %}
+
+    <section class="articles">
+        <!-- row of columns -->
+        <div class="row">
+            {% for article in articles %}
+                <article class="col-md-4">
+                    <div class="content">
+                        <!-- service: placehold.it permet de chopper les images de toutes tailles -->
+                        <figure>
+                            <img src="{{ article.image }}" alt="A generic placeholder image in a figure.">
+                            <figcaption class="figure-caption"><h6>{{ article.title }} | written by Toto</h6></figcaption>
+                        </figure>
+                        <p>{{article.content}} </p>
+                        <!-- filter twig -->
+                        <p>Created at {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} </p>
+                        <p><a class="btn btn-secondary" href="{{ path('article_page', {'id': article.id}) }}" role="button">View details &raquo;</a></p>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}
