@@ -99,7 +99,7 @@ h6 {
 .content {
   margin: auto;
   width: 50%;
-  text-align: center;
+  text-align: justify;
   align-content: stretch;
   justify-content: space-between;
 }
@@ -112,6 +112,18 @@ h6 {
 }
 
 .form {
+  margin: auto;
+  padding-top: 1.5em;
+  width: 50%;
+}
+
+.list-comments {
+  margin: auto;
+  padding-top: 1.5em;
+  width: 50%;
+}
+
+.comment {
   margin: auto;
   padding-top: 1.5em;
   width: 50%;

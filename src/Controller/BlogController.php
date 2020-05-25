@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleFormType;
+use App\Form\CommentFormType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +29,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/articles", name="articles_page")
      */
-    public function index(ArticleRepository $repository){
+    public function getAllArticles(ArticleRepository $repository){
 
         $articles = $repository->findAll();
 
@@ -40,7 +42,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/add", name="article_add")
      */
-    public function create(Request $request){
+    public function createArticle(Request $request){
 
         $article = new Article(); 
         // generate the form type and hydrate automatically the object using request method
@@ -53,27 +55,48 @@ class BlogController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('articles_page');
+            return $this->redirectToRoute('article_page', [
+                'id' => $article->getId()
+            ]);
         }
 
         return $this->render("blog/article-form.html.twig", [
             "form_title" => "Add a new article",
-            // generate the form's view in html page
-            "form_article" => $form->createView(),
-            
+            // generate the article form's view in html page
+            "form_article" => $form->createView()
         ]);
     }
 
     /**
      * @Route("/article={id}", name="article_page")
      */
-    public function article(ArticleRepository $repository, $id){
+    public function getArticleBy(Request $request, ArticleRepository $repository, $id){
 
         $article = $repository->find($id);
 
-        return $this->render('/blog/article.html.twig', [
-            'article' => $article
-        ]);
-    }
+        $comment = new Comment();
+        // generate the form type and hydrate automatically the object using request method
+        $form = $this->createForm(CommentFormType::class, $comment);
+        $form->handleRequest($request);
 
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $comment->setArticle($article);
+            $comment->setCreatedAt(new \DateTime('now'));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('article_page',[
+                'id' => $id
+            ]);
+        }
+
+        return $this->render('/blog/article.html.twig', [
+            'article' => $article,
+            // generate the comment form's view in html page
+            "form_comment" => $form->createView()
+        ]);
+
+    }
 }
