@@ -1,30 +1,35 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../css/style.css">
 {% endblock %}
 
 {% block body %}
 
-    <section class="articles">
-        <!-- row of columns -->
+<div class="album py-5 bg-light">
+    <div class="container">
+
         <div class="row">
             {% for article in articles %}
-                <article class="col-md-4">
-                    <div class="content">
-                        <!-- service: placehold.it permet de chopper les images de toutes tailles -->
-                        <figure>
-                            <img src="{{ article.image }}" alt="A generic placeholder image in a figure.">
-                            <figcaption class="figure-caption"><h6>{{ article.title }} | written by Toto</h6></figcaption>
-                        </figure>
-                        <p>{{article.content}} </p>
-                        <!-- filter twig -->
-                        <p>Created at {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} </p>
-                        <p><a class="btn btn-secondary" href="{{ path('article_page', {'id': article.id}) }}" role="button">View details &raquo;</a></p>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="card-img-top" src="{{ article.image }}" alt="A generic placeholder image in a figure.">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            <p class="card-text">{{ article.content }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p>
+                                    <a class="btn btn-secondary my-2" href="{{ path('article_page', {'id': article.id}) }}" 
+                                    role="button">View &raquo;</a>
+                                </p>
+                                <small class="text-muted">{{ article.createdAt | date('d/m/Y') }}</small>
+                            </div>
+                        </div>
                     </div>
-                </article>
+                </div>
             {% endfor %}
         </div>
-    </section>
+    </div>
+</div>
 
 {% endblock %}

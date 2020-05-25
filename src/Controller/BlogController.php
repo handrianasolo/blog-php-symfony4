@@ -19,13 +19,13 @@ class BlogController extends AbstractController
 
         $articles = $repository->findAll();
 
-        return $this->render('/blog/home.html.twig', [
+        return $this->render('blog/index.html.twig', [
             'articles' => $articles
         ]);
     }
 
     /**
-     * @Route("/blog/articles", name="articles_page")
+     * @Route("/articles", name="articles_page")
      */
     public function index(ArticleRepository $repository){
 
@@ -38,7 +38,7 @@ class BlogController extends AbstractController
 
     
     /**
-     * @Route("/blog/add", name="article_add")
+     * @Route("/add", name="article_add")
      */
     public function create(Request $request){
 
@@ -65,7 +65,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}", name="article_page")
+     * @Route("/article={id}", name="article_page")
      */
     public function article(ArticleRepository $repository, $id){
 
