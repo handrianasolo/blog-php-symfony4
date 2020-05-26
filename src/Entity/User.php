@@ -49,11 +49,6 @@ class User implements UserInterface
      */
     private $articles;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
-     */
-    private $comments;
-
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -160,26 +155,4 @@ class User implements UserInterface
         return $this->comments;
     }
 
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getUser() === $this) {
-                $comment->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 }

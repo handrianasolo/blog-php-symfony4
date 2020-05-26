@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -37,10 +38,9 @@ class Comment
     private $article;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
-    private $user;
+    private $author;
 
     public function __construct()
     {
@@ -88,15 +88,16 @@ class Comment
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getAuthor(): ?string
     {
-        return $this->user;
+        return $this->author;
     }
 
-    public function setUser(?User $user): self
+    public function setAuthor(string $author): self
     {
-        $this->user = $user;
+        $this->author = $author;
 
         return $this;
     }
+
 }
