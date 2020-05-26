@@ -1,0 +1,22 @@
+{% include "partials/header.html.twig" %}
+
+        <main role="main" id="main">
+            <!-- Authentification's form -->
+            <div class="form">
+                <h1> {{ form_title }} </h1>
+                <form action="{{ path('security_login') }}" method="post"> 
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="_username" placeholder="Enter email" required>
+                        <small id="email" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="_password" placeholder="Enter password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+            </div>
+        </main>
+
+{% include "partials/footer.html.twig" %}
