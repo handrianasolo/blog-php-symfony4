@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\ArticleFormType;
 use App\Form\CommentFormType;
+use App\Form\UserFormType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,6 +99,37 @@ class BlogController extends AbstractController
             // generate the comment form's view in html page
             "form_comment" => $form->createView()
         ]);
+
+    }
+
+    /**
+     * @Route("/auth", name="auth_page")
+     */
+
+    public function createUser(Request $request){
+
+        $user = new User();
+        // generate the form type and hydrate automatically the object using request method
+        $form = $this->createForm(UserFormType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('article_page', [
+                'id' => $user->getId()
+            ]);
+        }
+
+        return $this->render("blog/user-form.html.twig", [
+            "form_title" => "Authentification",
+            // generate the article form's view in html page
+            "form_auth" => $form->createView()
+        ]);
+
 
     }
 }
