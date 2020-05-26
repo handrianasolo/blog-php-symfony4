@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Article;
+use App\Form\ArticleFormType;
 use App\Form\RegistrationFormType;
+use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,11 +44,40 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/add", name="security_article_add")
+     */
+    public function createArticle(Request $request){
+
+        $article = new Article(); 
+        // generate the form type and hydrate automatically the object using request method
+        $form = $this->createForm(ArticleFormType::class, $article);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $article->setUser($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('article_page', [
+                'id' => $article->getId()
+            ]);
+        }
+
+        return $this->render("blog/article-form.html.twig", [
+            "form_title" => "Add a new article",
+            // generate the article form's view in html page
+            "form_article" => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/login", name="security_login")
      */
     public function login(){
         return $this->render('security/login-form.html.twig', [
-            'form_title' => 'Authentification'
+            'form_title' => 'Connexion'
         ]);
     }
 

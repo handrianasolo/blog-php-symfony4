@@ -2,13 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
 use App\Entity\Comment;
-use App\Entity\User;
-use App\Form\ArticleFormType;
 use App\Form\CommentFormType;
-use App\Form\RegistrationFormType;
-use App\Form\UserFormType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,35 +33,6 @@ class BlogController extends AbstractController
 
         return $this->render('blog/index.html.twig',[
             'articles' => $articles
-        ]);
-    }
-
-    
-    /**
-     * @Route("/add", name="blog_article_add")
-     */
-    public function createArticle(Request $request){
-
-        $article = new Article(); 
-        // generate the form type and hydrate automatically the object using request method
-        $form = $this->createForm(ArticleFormType::class, $article);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($article);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('article_page', [
-                'id' => $article->getId()
-            ]);
-        }
-
-        return $this->render("blog/article-form.html.twig", [
-            "form_title" => "Add a new article",
-            // generate the article form's view in html page
-            "form_article" => $form->createView()
         ]);
     }
 

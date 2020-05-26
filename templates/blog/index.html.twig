@@ -8,23 +8,23 @@
 
 <div class="album py-5 bg-light">
     <div class="container">
-
         <div class="row">
-            <!-- All articles -->
-            {% for article in articles %}
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
+            <!-- All articles --> 
+                {% for article in articles %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
                             <div class="card-header">
                                 {{ article.title }}    
                             </div>
-                        <img class="card-img-top" src="{{ article.image }}" alt="A generic placeholder image in a figure.">
-                        <div class="card-body">
-                            <p class="card-text">{{ article.content }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p>
+                            <img class="card-img-top" src="{{ article.image }}" alt="A generic placeholder image in a figure.">
+                            <div class="card-body">
+                                <p class="card-text">{{ article.content }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p>
                                     {% if app.user %}
                                         <a class="btn btn-secondary my-2" href="{{ path('blog_article_page', {'id': article.id}) }}" 
-                                        role="button">View &raquo;</a>
+                                            role="button">View &raquo;</a>
+                                        </a>
                                         <a class="btn btn-danger my-2" href="{{ path('blog_article_page', {'id': article.id}) }}" 
                                         role="button">
                                             <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -34,15 +34,16 @@
                                         </a>
                                     {% else %}
                                         <a class="btn btn-secondary my-2" href="{{ path('blog_article_page', {'id': article.id}) }}" 
-                                        role="button">View &raquo;</a>
+                                            role="button">View &raquo;</a>
+                                        </a>
                                     {% endif %}
-                                </p>
-                                <small class="text-muted">{{ article.createdAt | date('d/m/Y') }}</small>
+                                    </p>
+                                    <small class="text-muted">{{ article.createdAt | date('d/m/Y') }}</small>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
         </div>
     </div>
 </div>
