@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\User;
 use App\Form\ArticleFormType;
 use App\Form\CommentFormType;
+use App\Form\RegistrationFormType;
 use App\Form\UserFormType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +18,7 @@ class BlogController extends AbstractController
 {
 
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="blog_home")
      */
     public function home(ArticleRepository $repository){
 
@@ -29,7 +30,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/articles", name="articles_page")
+     * @Route("/articles", name="blog_articles_page")
      */
     public function getAllArticles(ArticleRepository $repository){
 
@@ -42,7 +43,7 @@ class BlogController extends AbstractController
 
     
     /**
-     * @Route("/add", name="article_add")
+     * @Route("/add", name="blog_article_add")
      */
     public function createArticle(Request $request){
 
@@ -70,7 +71,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/article={id}", name="article_page")
+     * @Route("/article={id}", name="blog_article_page")
      */
     public function getArticleBy(Request $request, ArticleRepository $repository, $id){
 
@@ -90,7 +91,7 @@ class BlogController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('article_page',[
-                'id' => $id
+                'id' => $article->getId()
             ]);
         }
 
@@ -100,36 +101,5 @@ class BlogController extends AbstractController
             "form_comment" => $form->createView()
         ]);
 
-    }
-
-    /**
-     * @Route("/auth", name="auth_page")
-     */
-
-    public function createUser(Request $request){
-
-        $user = new User();
-        // generate the form type and hydrate automatically the object using request method
-        $form = $this->createForm(UserFormType::class, $user);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('article_page', [
-                'id' => $user->getId()
-            ]);
-        }
-
-        return $this->render("blog/user-form.html.twig", [
-            "form_title" => "Authentification",
-            // generate the article form's view in html page
-            "form_auth" => $form->createView()
-        ]);
-
-
-    }
+    }  
 }
