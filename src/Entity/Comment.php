@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -34,6 +35,12 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -77,6 +84,18 @@ class Comment
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
