@@ -10,6 +10,7 @@
     <div class="container">
         <div class="row">
             <!-- All articles by user--> 
+<<<<<<< HEAD
                 {% for articles in app.user.articles %}
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
@@ -26,13 +27,35 @@
                                             role="button">View &raquo;</a>
                                         </a>
                                         <a class="btn btn-danger my-2" href="{{ path('security_article_delete', {'id': articles.id}) }}" 
+=======
+                {% for article in app.user.articles %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header">
+                                {{ article.title }}    
+                            </div>
+                            <img class="card-img-top" src="{{ article.image }}" alt="A generic placeholder image in a figure.">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">Written by {{ article.user.username }}</h6>
+                                <p class="card-text">{{ article.content }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p>
+                                        <a class="btn btn-secondary my-2" href="{{ path('blog_article_page', {'id': article.id}) }}" 
+                                            role="button">View &raquo;</a>
+                                        </a>
+                                        <a class="btn btn-danger my-2" href="{{ path('security_article_delete', {'id': article.id}) }}" 
+>>>>>>> d7cdad896d6bd18b72581a21e96b3951c3144990
                                         role="button">
                                             <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                             </svg>
                                         </a>
+<<<<<<< HEAD
                                         <a class="btn btn-info my-2" href="{{ path('security_article_edit', {'id': articles.id}) }}" 
+=======
+                                        <a class="btn btn-info my-2" href="{{ path('security_article_edit', {'id': article.id}) }}" 
+>>>>>>> d7cdad896d6bd18b72581a21e96b3951c3144990
                                         role="button">
                                             <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
@@ -40,7 +63,11 @@
                                             </svg>
                                         </a>
                                     </p>
+<<<<<<< HEAD
                                     <small class="text-muted">{{ articles.createdAt | date('d/m/Y') }} | {{ articles.createdAt | date('H:i') }}</small>
+=======
+                                    <small class="text-muted">{{ article.createdAt | date('d/m/Y') }}</small>
+>>>>>>> d7cdad896d6bd18b72581a21e96b3951c3144990
                                 </div>
                             </div>
                         </div>

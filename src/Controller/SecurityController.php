@@ -61,7 +61,11 @@ class SecurityController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('blog_article_page', [
+<<<<<<< HEAD
                 'title' => $article->getTitle()
+=======
+                'id' => $article->getId()
+>>>>>>> d7cdad896d6bd18b72581a21e96b3951c3144990
             ]);
         }
 
@@ -75,6 +79,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/myArticles", name="security_index")
     */
+<<<<<<< HEAD
     public function index(ArticleRepository $repository){
         // récuperer les données avec des critères de filtre et de tri
         $articles = $repository->findBy([], ['createdAt' => 'desc']);
@@ -82,6 +87,10 @@ class SecurityController extends AbstractController
         return $this->render('security/index.html.twig', [
             'articles' => $articles
         ]);
+=======
+    public function index(){
+        return $this->render('security/index.html.twig');
+>>>>>>> d7cdad896d6bd18b72581a21e96b3951c3144990
     }
 
     /**

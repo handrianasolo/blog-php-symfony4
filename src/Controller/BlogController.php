@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+<<<<<<< HEAD
 use App\Entity\PropertySearch;
 use App\Form\CommentFormType;
 use App\Form\PropertySearchType;
+=======
+use App\Form\CommentFormType;
+>>>>>>> d7cdad896d6bd18b72581a21e96b3951c3144990
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,12 +51,21 @@ class BlogController extends AbstractController
     }
 
     /**
+<<<<<<< HEAD
      * @Route("/article={title}", name="blog_article_page")
      */
     public function getArticleBy(Request $request, ArticleRepository $repository, $title){
 
         $article = $repository->findOneBy(['title' => $title]);
 
+=======
+     * @Route("/article={id}", name="blog_article_page")
+     */
+    public function getArticleBy(Request $request, ArticleRepository $repository, $id){
+
+        $article = $repository->find($id);
+
+>>>>>>> d7cdad896d6bd18b72581a21e96b3951c3144990
         $comment = new Comment();
         // generate the form type and hydrate automatically the object using request method
         $form = $this->createForm(CommentFormType::class, $comment);
@@ -68,7 +81,11 @@ class BlogController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('blog_article_page',[
+<<<<<<< HEAD
                 'title' => $article->getTitle()
+=======
+                'id' => $article->getId()
+>>>>>>> d7cdad896d6bd18b72581a21e96b3951c3144990
             ]);
         }
 
@@ -78,5 +95,9 @@ class BlogController extends AbstractController
             "form_comment" => $form->createView()
         ]);
 
+<<<<<<< HEAD
     }
+=======
+    }  
+>>>>>>> d7cdad896d6bd18b72581a21e96b3951c3144990
 }
