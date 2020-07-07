@@ -48,6 +48,12 @@ class ArticleFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'method' => ['post', 'get']
         ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return '';
     }
 }

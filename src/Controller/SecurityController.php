@@ -32,7 +32,7 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('articles_page');
+            return $this->redirectToRoute('blog_articles_page');
         }
 
         return $this->render("security/registration-form.html.twig", [
@@ -60,8 +60,8 @@ class SecurityController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article_page', [
-                'id' => $article->getId()
+            return $this->redirectToRoute('blog_article_page', [
+                'title' => $article->getTitle()
             ]);
         }
 
@@ -70,6 +70,55 @@ class SecurityController extends AbstractController
             // generate the article form's view in html page
             "form_article" => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/myArticles", name="security_index")
+    */
+    public function index(ArticleRepository $repository){
+        // récuperer les données avec des critères de filtre et de tri
+        $articles = $repository->findBy([], ['createdAt' => 'desc']);
+
+        return $this->render('security/index.html.twig', [
+            'articles' => $articles
+        ]);
+    }
+
+    /**
+     * @Route("/edit/article={id}", name="security_article_edit")
+    */
+    public function editArticle(Request $request, $id){
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $article = $entityManager->getRepository(Article::class)->find($id);
+        $form = $this->createForm(ArticleFormType::class, $article);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('security_index');
+        }
+
+        return $this->render("blog/article-form.html.twig", [
+            "form_title" => "Modification",
+            "form_article" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/delete/article={id}",name="security_article_delete")
+    */
+    public function deleteArticle($id){
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $article = $entityManager->getRepository(Article::class)->find($id);
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('security_index');
     }
 
     /**

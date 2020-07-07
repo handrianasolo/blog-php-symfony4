@@ -12,7 +12,6 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-
         <header>
           <div class="collapse bg-dark" id="navbarHeader">
             <div class="container">
@@ -47,8 +46,6 @@
             </div>
           </div>
         </header>
-
-
         <main role="main" id="main">
                 <section class="jumbotron text-center">
                         <div class="container">
@@ -62,10 +59,11 @@
                                 <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
                                 <p>
                                         {% if app.user %}
-                                                <a class="btn btn-secondary my-2" href="{{ path('security_article_add') }}">New article</a>
-                                                <a class="btn btn-secondary my-2" href="{{ path('security_logout') }}">Sign out</a>
+                                                <a class="btn btn-warning my-2" href="{{ path('security_article_add') }}">New article</a>
+                                                <a class="btn btn-success my-2" href="{{ path('security_index') }}">My articles</a>
+                                                <a class="btn btn-danger my-2" href="{{ path('security_logout') }}">Sign out</a>
                                         {% else %}
-                                                <a class="btn btn-secondary my-2" href="{{ path('security_login') }}">Sign in</a>
+                                                <a class="btn btn-primary my-2" href="{{ path('security_login') }}">Sign in</a>
                                                 <a class="btn btn-secondary my-2" href="{{ path('security_register') }}">Sign up</a>
                                         {% endif %}
                                 </p>
@@ -78,8 +76,7 @@
                         <p class="float-right">
                                 <a href="#main">Back to top</a>
                         </p>
-                        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-                        <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+                        <p>Blog example is &copy; Hanitra</p>
                 </div>
         </footer>
 

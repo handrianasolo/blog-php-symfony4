@@ -42,7 +42,8 @@ class ArticleFixtures extends Fixture
         $comment->setArticle($article)
                 ->setContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                             Sed iaculis tempor mi ut ullamcorper.")
-                ->setCreatedAt(new \DateTime());
+                ->setCreatedAt(new \DateTime())
+                ->setAuthor($user->getUsername());
 
         $manager->persist($comment);
 
