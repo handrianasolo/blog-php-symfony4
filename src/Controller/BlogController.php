@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Entity\PropertySearch;
 use App\Form\CommentFormType;
-use App\Form\PropertySearchType;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
