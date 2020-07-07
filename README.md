@@ -7,6 +7,7 @@ Création d'un blog en PHP en utilisant le framework Symfony 4.3 avec MySQL
 	- Consulter un article spécifique
 	- Modifier ou supprimer un article
 	- Créer un compte user
+	- Pagination avec knp-paginator-bundle
 
 # Maquette de l'application
 	- Faire les wireframes des pages de l'application
